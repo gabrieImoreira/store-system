@@ -1,0 +1,5 @@
+package com.gams.storesystem.resources;
+
+public class CategoryResource {
+
+}
