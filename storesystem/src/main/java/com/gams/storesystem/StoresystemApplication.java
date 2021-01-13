@@ -14,8 +14,10 @@ import com.gams.storesystem.domain.Client;
 import com.gams.storesystem.domain.Product;
 import com.gams.storesystem.domain.State;
 import com.gams.storesystem.domain.enums.TypeClient;
+import com.gams.storesystem.repositories.AddressRepository;
 import com.gams.storesystem.repositories.CategoryRepository;
 import com.gams.storesystem.repositories.CityRepository;
+import com.gams.storesystem.repositories.ClientRepository;
 import com.gams.storesystem.repositories.ProductRepository;
 import com.gams.storesystem.repositories.StateRepository;
 
@@ -30,6 +32,10 @@ public class StoresystemApplication implements CommandLineRunner {
 	private CityRepository cityRepository;
 	@Autowired 
 	private StateRepository stateRepository;
+	@Autowired 
+	private ClientRepository clientRepository;
+	@Autowired 
+	private AddressRepository addressRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(StoresystemApplication.class, args);
@@ -76,6 +82,8 @@ public class StoresystemApplication implements CommandLineRunner {
 		productRepository.saveAll(Arrays.asList(p1, p2, p3));
 		stateRepository.saveAll(Arrays.asList(st1, st2));
 		cityRepository.saveAll(Arrays.asList(c1, c2, c3));
+		clientRepository.saveAll(Arrays.asList(cli1));
+		addressRepository.saveAll(Arrays.asList(a1, a2));
 		
 	}
 
