@@ -22,5 +22,18 @@ public enum TypeClient {
 		return description;
 	}
 
-
+	public static TypeClient toEnum(Integer cod) {
+		
+		if(cod == null) {
+			return null;
+		}
+		
+		for(TypeClient x : TypeClient.values()) {
+			if(cod.equals(x.getCod())) {
+				return x;
+			}
+		}
+		
+		throw new IllegalArgumentException("Id inválido:" + cod);
+	}
 }

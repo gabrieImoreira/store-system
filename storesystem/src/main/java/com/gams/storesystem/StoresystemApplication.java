@@ -7,10 +7,13 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.gams.storesystem.domain.Address;
 import com.gams.storesystem.domain.Category;
 import com.gams.storesystem.domain.City;
+import com.gams.storesystem.domain.Client;
 import com.gams.storesystem.domain.Product;
 import com.gams.storesystem.domain.State;
+import com.gams.storesystem.domain.enums.TypeClient;
 import com.gams.storesystem.repositories.CategoryRepository;
 import com.gams.storesystem.repositories.CityRepository;
 import com.gams.storesystem.repositories.ProductRepository;
@@ -48,6 +51,15 @@ public class StoresystemApplication implements CommandLineRunner {
 		City c1 = new City(null, "Uberlândia", st1);
 		City c2 = new City(null, "São Paulo", st2);
 		City c3 = new City(null, "Campinas", st2);
+		
+		Client cli1 = new Client(null, "Maria", "ma.mrp@totUs.com.br", "3321324324", TypeClient.PESSOAFISICA);
+		
+		cli1.getPhones().addAll(Arrays.asList("24098274", "950528184"));
+		
+		Address a1 = new Address(null, "Rua Jose Manoel", "300", "Casa 1", "Vl Matilde", "03511000", cli1, c1);
+		Address a2 = new Address(null, "Rua das Palmeiras", "650", "Ap 23", "Gopouva", "07022000", cli1, c2);
+		
+		cli1.getAdresses().addAll(Arrays.asList(a1, a2));
 		
 		cat1.getProducts().addAll(Arrays.asList(p1, p2, p3));
 		cat2.getProducts().addAll(Arrays.asList(p2));
