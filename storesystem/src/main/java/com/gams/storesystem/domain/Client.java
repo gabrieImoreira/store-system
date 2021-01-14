@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.gams.storesystem.domain.enums.TypeClient;
 
 @Entity
@@ -28,8 +29,9 @@ public class Client implements Serializable{
 	private String cpfOrCnpj;
 	private Integer type;
 	
+	@JsonManagedReference//p não ter repetição ciclica
 	@OneToMany(mappedBy="client")
-	private List<Address> adresses = new ArrayList<>();
+	private List<Address> adresses  = new ArrayList<>();
 	
 	@ElementCollection
 	@CollectionTable(name="PHONE")
