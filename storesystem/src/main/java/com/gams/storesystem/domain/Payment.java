@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
@@ -11,27 +13,28 @@ import javax.persistence.OneToOne;
 import com.gams.storesystem.domain.enums.PaymentState;
 
 @Entity
-public class Payment implements Serializable{
+@Inheritance(strategy=InheritanceType.JOINED) 
+public abstract class Payment implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	private Integer id;
-	private PaymentState state;
+	private Integer state;
 	
 	@OneToOne
-	@JoinColumn(name="order_id")
+	@JoinColumn(name="request_id")
 	@MapsId
-	private Order order;
+	private Request request;
 	
 	public Payment() {
 		
 	}
 
-	public Payment(Integer id, PaymentState state, Order order) {
+	public Payment(Integer id, PaymentState state, Request request) {
 		super();
 		this.id = id;
-		this.state = state;
-		this.order = order;
+		this.state = state.getCod();
+		this.request = request;
 	}
 
 	public Integer getId() {
@@ -43,19 +46,19 @@ public class Payment implements Serializable{
 	}
 
 	public PaymentState getState() {
-		return state;
+		return PaymentState.toEnum(state);
 	}
 
 	public void setState(PaymentState state) {
-		this.state = state;
+		this.state = state.getCod();
 	}
 
-	public Order getOrder() {
-		return order;
+	public Request getRequest() {
+		return request;
 	}
 
-	public void setOrder(Order order) {
-		this.order = order;
+	public void setRequest(Request request) {
+		this.request = request;
 	}
 
 	@Override

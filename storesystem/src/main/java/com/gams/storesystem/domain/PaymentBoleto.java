@@ -2,8 +2,11 @@ package com.gams.storesystem.domain;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+
 import com.gams.storesystem.domain.enums.PaymentState;
 
+@Entity
 public class PaymentBoleto extends Payment {
 	private static final long serialVersionUID = 1L;
 
@@ -14,8 +17,8 @@ public class PaymentBoleto extends Payment {
 		
 	}
 
-	public PaymentBoleto(Integer id, PaymentState state, Order order, Date expirationDate, Date paymentDate) {
-		super(id, state, order);
+	public PaymentBoleto(Integer id, PaymentState state, Request request, Date expirationDate, Date paymentDate) {
+		super(id, state, request);
 		this.expirationDate = expirationDate;
 		this.paymentDate = paymentDate;
 	}

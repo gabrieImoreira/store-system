@@ -1,7 +1,10 @@
 package com.gams.storesystem.domain;
 
+import javax.persistence.Entity;
+
 import com.gams.storesystem.domain.enums.PaymentState;
 
+@Entity
 public class PaymentCard extends Payment {
 	private static final long serialVersionUID = 1L;
 
@@ -11,8 +14,8 @@ public class PaymentCard extends Payment {
 		
 	}
 
-	public PaymentCard(Integer id, PaymentState state, Order order, Integer plotsNumber) {
-		super(id, state, order);
+	public PaymentCard(Integer id, PaymentState state, Request request, Integer plotsNumber) {
+		super(id, state, request);
 		this.plotsNumber = plotsNumber;
 	}
 
