@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.gams.storesystem.domain.enums.TypeClient;
 
@@ -37,6 +38,7 @@ public class Client implements Serializable{
 	@CollectionTable(name="PHONE")
 	private Set<String> phones = new HashSet<>(); //collections
 	
+	@JsonBackReference //protecting against serialization 
 	@OneToMany(mappedBy="client")
 	private List<Request> requests = new ArrayList<>();
 	
