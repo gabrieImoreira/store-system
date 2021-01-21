@@ -2,10 +2,14 @@ package com.gams.storesystem.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+
+@Entity
 public class ItemRequest implements Serializable{
 	private static final long serialVersionUID = 1L;
 
-	
+	@EmbeddedId //id embutido em um tipo auxiliar
 	private ItemRequestPK id = new ItemRequestPK();
 	
 	private Double discount;
@@ -15,10 +19,11 @@ public class ItemRequest implements Serializable{
 	public ItemRequest() {
 	}
 
-	public ItemRequest(Request request, Product product, Integer quantity, Double price) {
+	public ItemRequest(Request request, Product product, Double discount, Integer quantity, Double price) {
 		super();
 		id.setRequest(request);
 		id.setProduct(product);
+		this.discount = discount;
 		this.quantity = quantity;
 		this.price = price;
 	}

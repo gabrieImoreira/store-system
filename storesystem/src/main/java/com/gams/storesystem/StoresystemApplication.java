@@ -12,6 +12,7 @@ import com.gams.storesystem.domain.Address;
 import com.gams.storesystem.domain.Category;
 import com.gams.storesystem.domain.City;
 import com.gams.storesystem.domain.Client;
+import com.gams.storesystem.domain.ItemRequest;
 import com.gams.storesystem.domain.Payment;
 import com.gams.storesystem.domain.PaymentBoleto;
 import com.gams.storesystem.domain.PaymentCard;
@@ -24,6 +25,7 @@ import com.gams.storesystem.repositories.AddressRepository;
 import com.gams.storesystem.repositories.CategoryRepository;
 import com.gams.storesystem.repositories.CityRepository;
 import com.gams.storesystem.repositories.ClientRepository;
+import com.gams.storesystem.repositories.ItemRequestRepository;
 import com.gams.storesystem.repositories.PaymentRepository;
 import com.gams.storesystem.repositories.ProductRepository;
 import com.gams.storesystem.repositories.RequestRepository;
@@ -32,7 +34,7 @@ import com.gams.storesystem.repositories.StateRepository;
 @SpringBootApplication
 public class StoresystemApplication implements CommandLineRunner {
 
-	@Autowired //data injection
+	@Autowired //data injection, dependency
 	private CategoryRepository categoryRepository;
 	@Autowired 
 	private ProductRepository productRepository;
@@ -48,6 +50,9 @@ public class StoresystemApplication implements CommandLineRunner {
 	private RequestRepository requestRepository;
 	@Autowired 
 	private PaymentRepository paymentRepository;
+	@Autowired 
+	private ItemRequestRepository itemRequestRepository;
+
 	
 	public static void main(String[] args) {
 		SpringApplication.run(StoresystemApplication.class, args);
@@ -86,6 +91,17 @@ public class StoresystemApplication implements CommandLineRunner {
 		Payment pay2 = new PaymentBoleto(null, PaymentState.PENDENTE, req2, sdf.parse("20/10/2021 00:00"), null);
 		req2.setPayment(pay2);
 		
+		ItemRequest ir1 = new ItemRequest(req1, p1, 0.00, 1, 2000.00);
+		ItemRequest ir2 = new ItemRequest(req1, p3, 0.00, 2, 80.00);
+		ItemRequest ir3 = new ItemRequest(req2, p2, 100.00, 1, 800.00);
+		
+		req1.getItems().addAll(Arrays.asList(ir1, ir2));
+		req2.getItems().addAll(Arrays.asList(ir3));
+		
+		p1.getItems().addAll(Arrays.asList(ir1));
+		p1.getItems().addAll(Arrays.asList(ir3));
+		p1.getItems().addAll(Arrays.asList(ir2));
+		
 		
 		cli1.getPhones().addAll(Arrays.asList("24098274", "950528184"));
 		cli1.getAdresses().addAll(Arrays.asList(a1, a2));
@@ -110,6 +126,7 @@ public class StoresystemApplication implements CommandLineRunner {
 		addressRepository.saveAll(Arrays.asList(a1, a2));
 		requestRepository.saveAll(Arrays.asList(req1, req2));
 		paymentRepository.saveAll(Arrays.asList(pay1, pay2));
+		itemRequestRepository.saveAll(Arrays.asList(ir1, ir2, ir3));
 	}
 
 }

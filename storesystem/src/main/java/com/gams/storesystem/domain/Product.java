@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -34,6 +35,7 @@ public class Product implements Serializable{
 			) //create table of relationship with foreign keys
 	private List<Category> categories = new ArrayList<>();
 	
+	@OneToMany(mappedBy="id.product")
 	private Set<ItemRequest> items = new HashSet<>(); //set is for not repeat items in request
 	
 	public Product() {
@@ -47,7 +49,7 @@ public class Product implements Serializable{
 		this.price = price;
 	}
 	
-	public List<Request> requests(){
+	public List<Request> getRequests(){
 		List<Request> list = new ArrayList<>();
 		for(ItemRequest x : items) {
 			list.add(x.getRequest());
