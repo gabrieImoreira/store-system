@@ -2,7 +2,9 @@ package com.gams.storesystem.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,6 +34,8 @@ public class Product implements Serializable{
 			) //create table of relationship with foreign keys
 	private List<Category> categories = new ArrayList<>();
 	
+	private Set<ItemRequest> items = new HashSet<>(); //set is for not repeat items in request
+	
 	public Product() {
 		
 	}
@@ -42,6 +46,15 @@ public class Product implements Serializable{
 		this.name = name;
 		this.price = price;
 	}
+	
+	public List<Request> requests(){
+		List<Request> list = new ArrayList<>();
+		for(ItemRequest x : items) {
+			list.add(x.getRequest());
+		}
+		return list;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -66,6 +79,13 @@ public class Product implements Serializable{
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
 	}
+	public Set<ItemRequest> getItems() {
+		return items;
+	}
+	public void setItems(Set<ItemRequest> items) {
+		this.items = items;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -89,8 +109,6 @@ public class Product implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
 	
 }
 	

@@ -2,6 +2,8 @@ package com.gams.storesystem.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -31,6 +33,8 @@ public class Request implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="delivery_adress_id")
 	private Address deliveryAddress;
+	
+	private Set<ItemRequest> items = new HashSet<>();
 	
 	public Request() {
 		
@@ -83,6 +87,14 @@ public class Request implements Serializable{
 	public void setDeliveryAddress(Address deliveryAddress) {
 		this.deliveryAddress = deliveryAddress;
 	}
+	
+	public Set<ItemRequest> getItems() {
+		return items;
+	}
+
+	public void setItems(Set<ItemRequest> items) {
+		this.items = items;
+	}
 
 	@Override
 	public int hashCode() {
@@ -108,7 +120,8 @@ public class Request implements Serializable{
 			return false;
 		return true;
 	}
-	
+
+
 	
 	
 	
