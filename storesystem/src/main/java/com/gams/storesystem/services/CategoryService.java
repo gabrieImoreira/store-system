@@ -25,4 +25,9 @@ public class CategoryService {
 		obj.setId(null);
 		return repo.save(obj); //save item in db
 	}
+
+	public Category update(Category obj) {
+		search(obj.getId()); //verify if exists id
+		return repo.save(obj); 
+	}
 }

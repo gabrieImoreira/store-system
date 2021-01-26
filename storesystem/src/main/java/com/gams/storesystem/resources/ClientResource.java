@@ -18,7 +18,7 @@ public class ClientResource {
 	private ClientService service; //for find id
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET) //receive id for show in url
-	public ResponseEntity<?> find(@PathVariable Integer id) { //@Path is to 'linkar' the id above
+	public ResponseEntity<Client> find(@PathVariable Integer id) { //@Path is to 'linkar' the id above
 		Client obj = service.search(id); //connected with @AutowiredClient service above 
 		return ResponseEntity.ok().body(obj); //return the response and found obj 
 
