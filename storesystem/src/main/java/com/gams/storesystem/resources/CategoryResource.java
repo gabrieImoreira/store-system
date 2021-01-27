@@ -1,6 +1,8 @@
 package com.gams.storesystem.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.gams.storesystem.domain.Category;
+import com.gams.storesystem.dto.CategoryDTO;
 import com.gams.storesystem.services.CategoryService;
 
 @RestController
@@ -49,4 +52,12 @@ public class CategoryResource {
 		return ResponseEntity.noContent().build();	
 		
 	}
+	
+	@RequestMapping(method=RequestMethod.GET) //receive id for show in url
+	public ResponseEntity<List<CategoryDTO>> findAll() { //@Path is to 'linkar' the id above
+		List<Category> list = service.findAll(); //connected with @AutowiredCategory service above 
+		List<CategoryDTO> listDto = list.stream().map(obj -> new CategoryDTO(obj)).collect(Collectors.toList()); //convert list to DTO in one line
+		return ResponseEntity.ok().body(listDto); //return the response and found obj 
+	}
+	
 }
