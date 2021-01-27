@@ -5,11 +5,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -53,11 +55,23 @@ public class CategoryResource {
 		
 	}
 	
-	@RequestMapping(method=RequestMethod.GET) //receive id for show in url
-	public ResponseEntity<List<CategoryDTO>> findAll() { //@Path is to 'linkar' the id above
-		List<Category> list = service.findAll(); //connected with @AutowiredCategory service above 
+	@RequestMapping(method=RequestMethod.GET)
+	public ResponseEntity<List<CategoryDTO>> findAll() { 
+		List<Category> list = service.findAll(); 
 		List<CategoryDTO> listDto = list.stream().map(obj -> new CategoryDTO(obj)).collect(Collectors.toList()); //convert list to DTO in one line
-		return ResponseEntity.ok().body(listDto); //return the response and found obj 
+		return ResponseEntity.ok().body(listDto);
+	}
+	
+	// ->      /categorias/page?page=0&linesPerPage=20
+	@RequestMapping(value="page", method=RequestMethod.GET) 
+	public ResponseEntity<Page<CategoryDTO>> findPage(
+			@RequestParam(value="page", defaultValue="0") Integer page, //optional param, only if requested
+			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, //24 for responsive layoyt
+			@RequestParam(value="orderBy", defaultValue="name") String orderBy,
+			@RequestParam(value="direction", defaultValue="ASC") String direction) { //ASC OR DESC => ASCEDENT OR DESCENDENT
+		Page<Category> list = service.findPage(page, linesPerPage, orderBy, direction);
+		Page<CategoryDTO> listDto = list.map(obj -> new CategoryDTO(obj)); 
+		return ResponseEntity.ok().body(listDto); 
 	}
 	
 }
