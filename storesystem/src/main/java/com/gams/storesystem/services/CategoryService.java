@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.gams.storesystem.domain.Category;
+import com.gams.storesystem.dto.CategoryDTO;
 import com.gams.storesystem.repositories.CategoryRepository;
 import com.gams.storesystem.services.exceptions.DataIntegrityException;
 import com.gams.storesystem.services.exceptions.ObjectNotFoundException;
@@ -56,5 +57,9 @@ public class CategoryService {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction),
 				orderBy);
 		return repo.findAll(pageRequest);
+	}
+	
+	public Category fromDTO(CategoryDTO objDto) {
+		return new Category(objDto.getId(),objDto.getName());
 	}
 }
