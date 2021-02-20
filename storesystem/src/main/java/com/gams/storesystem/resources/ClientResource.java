@@ -1,15 +1,19 @@
 package com.gams.storesystem.resources;
 
+import com.gams.storesystem.domain.Category;
 import com.gams.storesystem.domain.Client;
 import com.gams.storesystem.dto.CategoryDTO;
 import com.gams.storesystem.dto.ClientDTO;
+import com.gams.storesystem.dto.ClientNewDto;
 import com.gams.storesystem.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +29,15 @@ public class ClientResource {
 		Client obj = service.search(id); //connected with @AutowiredClient service above 
 		return ResponseEntity.ok().body(obj); //return the response and found obj 
 
+	}
+
+	@RequestMapping(method=RequestMethod.POST) // create new item
+	public ResponseEntity<Void> insert(@Valid @RequestBody ClientNewDto objDto) {
+		Client obj = service.fromDTO(objDto);
+		obj = service.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+				.buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).build(); //create new item in category
 	}
 
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)

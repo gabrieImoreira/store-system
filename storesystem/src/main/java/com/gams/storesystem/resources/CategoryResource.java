@@ -35,7 +35,7 @@ public class CategoryResource {
 
 	}
 	
-	@RequestMapping(method=RequestMethod.POST) // create new item 
+	@RequestMapping(method=RequestMethod.POST) // create new item
 	public ResponseEntity<Void> insert(@Valid @RequestBody CategoryDTO objDto) {
 		Category obj = service.fromDTO(objDto);
 		obj = service.insert(obj);

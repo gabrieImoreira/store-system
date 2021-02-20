@@ -3,6 +3,7 @@ package com.gams.storesystem.services;
 import com.gams.storesystem.domain.Category;
 import com.gams.storesystem.domain.Client;
 import com.gams.storesystem.dto.CategoryDTO;
+import com.gams.storesystem.repositories.AddressRepository;
 import com.gams.storesystem.repositories.CategoryRepository;
 import com.gams.storesystem.services.exceptions.DataIntegrityException;
 import com.gams.storesystem.services.exceptions.ObjectNotFoundException;
@@ -21,6 +22,7 @@ public class CategoryService {
 
 	@Autowired
 	private CategoryRepository repo;
+
 
 	public Category search(Integer id) {
 		Optional<Category> obj = repo.findById(id);
