@@ -6,13 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CollectionTable;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gams.storesystem.domain.enums.TypeClient;
@@ -29,7 +23,7 @@ public class Client implements Serializable{
 	private String cpfOrCnpj;
 	private Integer type;
 
-	@OneToMany(mappedBy="client")
+	@OneToMany(mappedBy="client", cascade=CascadeType.ALL)
 	private List<Address> adresses  = new ArrayList<>();
 	
 	@ElementCollection
