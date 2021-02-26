@@ -1,12 +1,14 @@
 package com.gams.storesystem.dto;
 
 import com.gams.storesystem.domain.Client;
+import com.gams.storesystem.services.validation.ClientUpdate;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
+@ClientUpdate
 public class ClientDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
