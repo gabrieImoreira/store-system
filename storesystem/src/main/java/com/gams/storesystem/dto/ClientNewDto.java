@@ -1,22 +1,43 @@
 package com.gams.storesystem.dto;
 
+import com.gams.storesystem.services.validation.ClientInsert;
+import org.hibernate.validator.constraints.Length;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
+@ClientInsert
 public class ClientNewDto implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @NotEmpty(message="Preenchimento obrigatório")
+    @Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres")
     private String name;
+
+    @NotEmpty(message="Preenchimento obrigatório")
+    @Email(message="E-mail inválido")
     private String email;
+
+    @NotEmpty(message="Preenchimento obrigatório")
     private String cpfOrCnpj;
     private Integer type;
 
+    @NotEmpty(message="Preenchimento obrigatório")
     private String publicArea; //logradouro
+
+    @NotEmpty(message="Preenchimento obrigatório")
     private String number;
+
     private String complement;
     private String district; //bairro
+
+    @NotEmpty(message="Preenchimento obrigatório")
     private String zipCode; //cep
 
+    @NotEmpty(message="Preenchimento obrigatório")
     private String phone1;
+
     private String phone2;
     private String phone3;
 
