@@ -39,9 +39,16 @@ public class ItemRequest implements Serializable{
 	public Request getRequest() {
 		return id.getRequest();
 	}
-	
+
+	public void setRequest(Request request){
+		id.setRequest(request);
+	}
 	public Product getProduct() {
 		return id.getProduct();
+	}
+
+	public void setProduct(Product product){
+		id.setProduct(product);
 	}
 	
 	public ItemRequestPK getId() {
