@@ -5,6 +5,7 @@ import com.gams.storesystem.domain.Product;
 import com.gams.storesystem.domain.Request;
 import com.gams.storesystem.dto.CategoryDTO;
 import com.gams.storesystem.dto.ProductDTO;
+import com.gams.storesystem.resources.utils.URL;
 import com.gams.storesystem.services.ProductService;
 import com.gams.storesystem.services.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@RequestMapping(value="/products")
+@RequestMapping(value="/produtos")
 public class ProductResource {
 
 	@Autowired
@@ -33,8 +36,10 @@ public class ProductResource {
 			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, //24 for responsive layoyt
 			@RequestParam(value="orderBy", defaultValue="name") String orderBy,
 			@RequestParam(value="direction", defaultValue="ASC") String direction) { //ASC OR DESC => ASCEDENT OR DESCENDENT
-		Page<Product> list = service.search(page, linesPerPage, orderBy, direction);
-		Page<ProductDTO> listDto = list.map(obj -> new CategoryDTO(obj));
+		String nameDecoded = URL.decodeParam(name);
+		List<Integer> ids = URL.decodeIntList(categories);
+		Page<Product> list = service.search(nameDecoded, ids, page, linesPerPage, orderBy, direction);
+		Page<ProductDTO> listDto = list.map(obj -> new ProductDTO(obj));
 		return ResponseEntity.ok().body(listDto);
 	}
 }

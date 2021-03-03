@@ -1,5 +1,7 @@
 package com.gams.storesystem.dto;
 
+import com.gams.storesystem.domain.Product;
+
 import java.io.Serializable;
 
 public class ProductDTO implements Serializable {
@@ -10,6 +12,12 @@ public class ProductDTO implements Serializable {
     private double price;
 
     public ProductDTO() {
+    }
+
+    public ProductDTO(Product obj) {
+        id = obj.getId();
+        name = obj.getName();
+        price = obj.getPrice();
     }
 
     public Integer getId() {
