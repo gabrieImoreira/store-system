@@ -1,6 +1,7 @@
 package com.gams.storesystem;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +73,35 @@ public class StoresystemApplication implements CommandLineRunner {
 		Product p1 = new Product(null, "Computer", 2000.0);
 		Product p2 = new Product(null, "Printer", 800.0);
 		Product p3 = new Product(null, "Mouse", 80.0);
-		
+		Product p4 = new Product(null, "Office table", 300.0);
+		Product p5 = new Product(null, "Towel", 50.0);
+		Product p6 = new Product(null, "Blanket", 50.0);
+		Product p7 = new Product(null, "TV", 1200.0);
+		Product p8 = new Product(null, "Light fixture", 800.0);
+		Product p9 = new Product(null, "Lamp", 100.0 );
+		Product p10 = new Product(null, "Cabinet", 180.0);
+		Product p11 = new Product(null, "Shampoo", 90.0);
+
+		cat1.getProducts().addAll(Arrays.asList(p1, p2, p3));
+		cat2.getProducts().addAll(Arrays.asList(p2, p4));
+		cat3.getProducts().addAll(Arrays.asList(p5, p6));
+		cat4.getProducts().addAll(Arrays.asList(p1, p2, p3, p7));
+		cat5.getProducts().addAll(Arrays.asList(p8));
+		cat6.getProducts().addAll(Arrays.asList(p9, p10));
+		cat7.getProducts().addAll(Arrays.asList(p11));
+
+		p1.getCategories().addAll(Arrays.asList(cat1, cat4));
+		p2.getCategories().addAll(Arrays.asList(cat1, cat2, cat4));
+		p3.getCategories().addAll(Arrays.asList(cat1, cat4));
+		p4.getCategories().addAll(Arrays.asList(cat2));
+		p5.getCategories().addAll(Arrays.asList(cat3));
+		p6.getCategories().addAll(Arrays.asList(cat3));
+		p7.getCategories().addAll(Arrays.asList(cat4));
+		p8.getCategories().addAll(Arrays.asList(cat5));
+		p9.getCategories().addAll(Arrays.asList(cat6));
+		p10.getCategories().addAll(Arrays.asList(cat6));
+		p11.getCategories().addAll(Arrays.asList(cat7));
+
 		State st1 = new State(null, "Minas Gerais");
 		State st2 = new State(null, "São Paulo");
 		
@@ -110,21 +139,14 @@ public class StoresystemApplication implements CommandLineRunner {
 		
 		cli1.getPhones().addAll(Arrays.asList("24098274", "950528184"));
 		cli1.getAdresses().addAll(Arrays.asList(a1, a2));
-		
-		cat1.getProducts().addAll(Arrays.asList(p1, p2, p3));
-		cat2.getProducts().addAll(Arrays.asList(p2));
-		
-		p1.getCategories().addAll(Arrays.asList(cat1));
-		p2.getCategories().addAll(Arrays.asList(cat1, cat2));
-		p3.getCategories().addAll(Arrays.asList(cat1));
-		
+
 		st1.getCities().addAll(Arrays.asList(c1));
 		st2.getCities().addAll(Arrays.asList(c2, c3));
 		
 		cli1.getRequests().addAll(Arrays.asList(req1, req2));
 		
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7)); //save and inject data in db
-		productRepository.saveAll(Arrays.asList(p1, p2, p3));
+		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
 		stateRepository.saveAll(Arrays.asList(st1, st2));
 		cityRepository.saveAll(Arrays.asList(c1, c2, c3));
 		clientRepository.saveAll(Arrays.asList(cli1));
