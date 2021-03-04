@@ -1,6 +1,7 @@
 package com.gams.storesystem.services;
 
 import com.gams.storesystem.domain.Category;
+import com.gams.storesystem.domain.ItemRequest;
 import com.gams.storesystem.domain.Product;
 import com.gams.storesystem.domain.Request;
 import com.gams.storesystem.repositories.CategoryRepository;
@@ -36,4 +37,5 @@ public class ProductService {
 		List<Category> categories = categoryRepository.findAllById(ids);
 		return repo.findDistinctByNameContainingAndCategoriesIn(name, categories, pageRequest);
 	}
+
 }
